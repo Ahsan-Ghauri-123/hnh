@@ -10,7 +10,7 @@ import Iso from 'react-native-vector-icons/MaterialIcons';
 import XLSX from 'xlsx';
 import RNFS from 'react-native-fs';
 
-const Projects = () => {
+const LeadKanboard = () => {
     const [selected, setSelected] = React.useState("");
     const [searchText, setSearchText] = useState('');
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -306,7 +306,7 @@ const Projects = () => {
             </View>
             <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15, marginHorizontal: -6 }}>
                 <TouchableOpacity style={{
-                    height: 50, width: 100, backgroundColor: "white", borderRadius: 16, marginTop: 24, shadowColor: "#000",
+                    height: 50, width: 100, backgroundColor: "#20b5e9", borderRadius: 16, marginTop: 24, shadowColor: "#000",
                     marginHorizontal: 33,
                     shadowOffset: {
                         width: 0,
@@ -317,8 +317,8 @@ const Projects = () => {
 
                     elevation: 12
                 }}>
-                    <Icon name="file-export" color="gray" size={18} style={{ marginTop: 22, marginHorizontal: 12 }} />
-                    <Text style={{ textAlign: "center", marginTop: 12, fontWeight: "bold", color:"gray"}}>Export</Text>
+                    <Iconi name="plus" color="black" size={18} style={{ marginTop: 5, marginHorizontal: 41 }} />
+                    <Text style={{ textAlign: "center", marginTop: -3, fontWeight: "bold" }}>Add Lead</Text>
                 </TouchableOpacity>
                 <View style={{ flexDirection: "row" }}>
                     <TouchableOpacity
@@ -356,9 +356,75 @@ const Projects = () => {
                 </View>
             </View>
 
+            {/* Multiple Pending Sections */}
+            <View style={{ flex: 1, backgroundColor: '#f5f5f5' }}>
+            {['Pending', 'In Process', 'Converted'].map((category, index) => (
+                <View key={index} style={{
+                    height: 130,
+                    width: '95%',
+                    backgroundColor: '#c0e0fa',
+                    borderRadius: 16,
+                    marginTop: 22,
+                    marginHorizontal: 12,
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 5 },
+                    shadowOpacity: 0.36,
+                    shadowRadius: 6.68,
+                    elevation: 11,
+                }}>
+                    <Text style={{
+                        marginTop: 8,
+                        fontWeight: 'bold',
+                        margin: 15,
+                        fontSize: 18,
+                        color: 'black',
+                    }}>{category}</Text>
+                    <TouchableOpacity
+                        style={{
+                            position: 'absolute',
+                            top: 8,
+                            right: 8,
+                            backgroundColor: 'white',
+                            borderRadius: 15,
+                            padding: 4,
+                            elevation: 5,
+                        }}
+                        onPress={() => handleOpenBottomSheet(category)}
+                    >
+                        <Iso name="cancel" size={22} color="gray" />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{
+                        height: 50,
+                        width: '88%',
+                        backgroundColor: 'white',
+                        borderRadius: 6,
+                        marginTop: 2,
+                        marginHorizontal: 12,
+                        shadowColor: '#000',
+                        shadowOffset: { width: 0, height: 5 },
+                        shadowOpacity: 1.36,
+                        shadowRadius: 6.68,
+                        elevation: 9,
+                        justifyContent: 'center',
+                    }}>
+                    <Iconi name="plus" color="gray" size={22} style={{ marginTop: 5, marginHorizontal:85 }} />
+                        <Text style={{
+                            textAlign: 'center',
+                            fontWeight: 'bold',
+                            color: 'gray',
+                            fontSize: 16,
+                            marginTop: -22,
+                        }}>Add Lead</Text>
+                    </TouchableOpacity>
+                    
+                </View>
+            ))}
+            {renderBottomSheet()}
+        </View>
+
         </ScrollView>
         </SafeAreaView>
     );
 };
 
-export default Projects;
+export default LeadKanboard;

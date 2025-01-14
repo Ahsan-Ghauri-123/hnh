@@ -1001,7 +1001,6 @@
 
 // export default NewsFeed;
 
-
 import React, { useState } from "react";
 import {
   Image,
@@ -1015,12 +1014,12 @@ import {
 } from "react-native";
 import Icons from "react-native-vector-icons/MaterialCommunityIcons";
 import { launchImageLibrary } from "react-native-image-picker";
-import Animated, { SlideInLeft, SlideInRight, SlideOutLeft, Layout } from "react-native-reanimated";
+import Animated, { SlideInLeft, SlideOutLeft, Layout, SlideInRight } from "react-native-reanimated";
 
 const NewsFeed = () => {
   const [inputText, setInputText] = useState("");
   const [posts, setPosts] = useState([]);
-  const [commentText, setCommentText] = useState("");
+  const [commentText, setCommentText] = useState({}); // Store comment input per post
 
   const handlePost = () => {
     if (inputText.trim() !== "") {
@@ -1047,11 +1046,13 @@ const NewsFeed = () => {
   };
 
   const handleAddComment = (postIndex) => {
-    if (commentText.trim() !== "") {
+    if (commentText[postIndex]?.trim() !== "") {
       const updatedPosts = [...posts];
-      updatedPosts[postIndex].comments.push(commentText);
+      updatedPosts[postIndex].comments.push(commentText[postIndex]);
       setPosts(updatedPosts);
-      setCommentText("");
+
+      // Clear comment input for this specific post
+      setCommentText((prev) => ({ ...prev, [postIndex]: "" }));
     }
   };
 
@@ -1079,8 +1080,8 @@ const NewsFeed = () => {
           <TextInput
             placeholder="Add a comment"
             style={styles.commentInput}
-            value={commentText}
-            onChangeText={(text) => setCommentText(text)}
+            value={commentText[index] || ""} // Use comment input specific to this post
+            onChangeText={(text) => setCommentText((prev) => ({ ...prev, [index]: text }))}
           />
           <TouchableOpacity onPress={() => handleAddComment(index)} style={{ marginLeft: 10 }}>
             <Icons name="send" size={24} color="#0f8df5" />
@@ -1115,7 +1116,7 @@ const NewsFeed = () => {
   ];
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#7cb7fb" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <ScrollView>
         <View style={styles.inputContainer}>
           <Text style={styles.dashboardText}>Dashboard</Text>
@@ -1145,12 +1146,28 @@ const NewsFeed = () => {
           style={{ paddingHorizontal: 18, marginTop: 15 }}
         />
 
-        <FlatList
-          data={taskProjectData}
-          renderItem={renderTaskOrProject}
-          keyExtractor={(item) => item.title}
-          style={{ marginTop: 8, paddingHorizontal: 18 }}
-        />
+        <View style={{ marginTop: 8, paddingHorizontal: 18 }}>
+        {taskProjectData.map((item, index) => (
+          <Animated.View
+            key={index}
+            entering={SlideInRight}
+            exiting={SlideOutLeft}
+            layout={Layout}
+            style={styles.infoContainer}
+          >
+            <Text style={styles.infoHeader}>{item.title}</Text>
+            <View style={styles.infoRow}>
+              <Text style={styles.infoCount(item.color1)}>{item.count1}</Text>
+              <Text style={styles.infoCount(item.color2)}>{item.count2}</Text>
+            </View>
+            <View style={styles.infoRow}>
+              <Text style={styles.infoLabel}>Pending</Text>
+              <Text style={styles.infoLabel}>Overdue</Text>
+            </View>
+          </Animated.View>
+        ))}
+      </View>
+
       </ScrollView>
     </SafeAreaView>
   );
@@ -1162,17 +1179,19 @@ const styles = {
     marginTop: 45,
     marginHorizontal: 18,
     borderRadius: 10,
+    borderWidth: 0.4,
     padding: 12,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.34,
     shadowRadius: 6.27,
     elevation: 22,
+    borderColor: "#032e73",
   },
   dashboardText: { fontSize: 22, fontWeight: "bold", marginBottom: 10 },
   textInputRow: { flexDirection: "row", alignItems: "center" },
   profileImage: { height: 54, width: 51, borderRadius: 27, borderWidth: 0.7 },
-  inputField: { flex: 1, marginLeft: 10, backgroundColor: "#e1effa", borderRadius: 16, height: 55, borderWidth: 0.4 },
+  inputField: { flex: 1, marginLeft: 10, backgroundColor: "#e1effa", borderRadius: 16, height: 45, borderWidth: 0.4 },
   buttonRow: { flexDirection: "row", marginTop: 15, alignItems: "center", borderWidth: 0.1 },
   imageButton: {
     borderWidth: 0.5,
@@ -1204,7 +1223,14 @@ const styles = {
     elevation: 15,
   },
   postButtonText: { color: "white", fontSize: 17 },
-  postContainer: { backgroundColor: "#f8f9fa", padding: 10, borderRadius: 10, marginBottom: 10 },
+  postContainer: {
+    backgroundColor: "#f8f9fa",
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 10,
+    borderWidth: 0.4,
+    borderColor: "#032e73",
+  },
   postImage: (hasImage) => ({
     borderWidth: 0.7,
     height: hasImage ? 190 : 54,
@@ -1245,3 +1271,4 @@ const styles = {
 };
 
 export default NewsFeed;
+

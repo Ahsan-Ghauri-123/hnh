@@ -311,7 +311,7 @@ const LeadScreen = () => {
           marginTop: 45,
           width: '90%',
           marginHorizontal: 18,
-          borderRadius: ,
+          borderRadius: 22,
           borderWidth: 0.2,
           padding: 12,
           height: 620,
@@ -448,6 +448,9 @@ const LeadScreen = () => {
             <Ico name="view-list" size={42} color="white" />
           </TouchableOpacity>
           <TouchableOpacity
+          // onPress={()=>{
+      //   props.navigation.navigate("LeadKanboard");
+      // }}
             style={{
               height: 55,
               width: 60,

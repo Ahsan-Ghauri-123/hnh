@@ -412,6 +412,188 @@
 // export default LoginScreen;
 
 
+// import React, { useState } from "react";
+// import {
+//   ScrollView,
+//   Text,
+//   View,
+//   Switch,
+//   TouchableOpacity,
+//   SafeAreaView,
+//   Dimensions,
+//   Image
+// } from "react-native";
+// import Header from "../../components/Header";
+// import MyInput from "../../components/MyInput";
+// import MyButton from "../../components/MyButton";
+// import Icons from "react-native-vector-icons/Ionicons";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
+// import Animated, {
+//   useSharedValue,
+//   useAnimatedStyle,
+//   withTiming,
+//   withSpring,
+// } from "react-native-reanimated";
+
+// const { width } = Dimensions.get("window");
+
+// const LoginScreen = (props) => {
+//   const [email, setEmail] = useState("");
+//   const [Password, setPassword] = useState("");
+//   const [isStayLoggedIn, setIsStayLoggedIn] = useState(false);
+//   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+//   // Reanimated Shared Values
+//   const fadeAnim = useSharedValue(0); // Initial opacity for the form
+//   const buttonScale = useSharedValue(1); // Scale for the button
+
+//   // Animated Styles
+//   const formStyle = useAnimatedStyle(() => ({
+//     opacity: withTiming(fadeAnim.value, { duration: 1000 }),
+//     transform: [
+//       {
+//         translateY: withTiming(fadeAnim.value === 1 ? 0 : 50, { duration: 1000 }),
+//       },
+//     ],
+//   }));
+
+//   const buttonStyle = useAnimatedStyle(() => ({
+//     transform: [{ scale: buttonScale.value }],
+//   }));
+
+//   // Trigger animation when component mounts
+//   React.useEffect(() => {
+//     fadeAnim.value = 1; // Fade in the form
+//   }, []);
+
+//   const handleButtonPressIn = () => {
+//     buttonScale.value = withSpring(0.9);
+//   };
+
+//   const handleButtonPressOut = () => {
+//     buttonScale.value = withSpring(1);
+//   };
+
+//   const LoginHandler = async () => {
+//     if (email === "") {
+//       alert("Please enter your email first");
+//     } else if (Password === "") {
+//       alert("Please enter your Password first");
+//     } else if (email === "ahsanghauri@gmail.com" && Password === "123") {
+//       try {
+//         await AsyncStorage.setItem("Useremail", email);
+//         await AsyncStorage.setItem("UserPassword", Password);
+//         console.log("Saved Data successfully");
+//         // props.navigation.navigate("HomeScreen");
+//       } catch (error) {
+//         console.error("Failed to save user data:", error);
+//       }
+//     } else {
+//       alert("Please enter a valid email or Password");
+//     }
+//   };
+
+//   return (
+//     <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
+//       <ScrollView
+//         contentContainerStyle={{
+//           flexGrow: 1,
+//           justifyContent: "center",
+//           alignItems: "center",
+//           backgroundColor: 'white',
+//           paddingVertical: 20,
+//         }}
+//       >
+//       <View style={{marginHorizontal:12}}>
+//       <Image source={require("../../Assets/logo.png")} style={{height:85, width:122}} />
+//       </View>
+//         {/* Animated Form */}
+//         <Animated.View
+//           style={[
+//             {
+//               width: "90%",
+//               backgroundColor: "white",
+//               borderRadius: 8,
+//               padding: 20,
+//             },
+//             formStyle, // Apply animated style
+//           ]}>
+//           <Text style={{ fontSize: width * 0.045, fontWeight: "600", marginHorizontal:12 }}>
+//             Email Address
+//           </Text>
+//           <MyInput
+//             Don="email Address"
+//             onChangeText={(text) => setEmail(text)}
+//           />
+//           <Text
+//             style={{
+//               fontSize: width * 0.045,
+//               fontWeight: "600",
+//               marginTop: 22,
+//               marginHorizontal:12
+//             }}>
+//             Password
+//           </Text>
+//           <View>
+//           <MyInput
+//             Don="Must have at least 8 characters"
+//             onChangeText={(text) => setPassword(text)}
+//             secureTextEntry={!isPasswordVisible}
+//           />
+//           </View>
+//           <View style={{
+//             position: "absolute",
+//             top: "49%",
+//             right: "13%",
+//             width:"10%",
+//             height: 40,
+//           }}>
+//           <TouchableOpacity
+//           onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+//           <Icons
+//             name={isPasswordVisible ? "eye" : "eye-off"}
+//             size={24}
+//             color="gray"
+//           />
+//         </TouchableOpacity>
+//           </View>
+//           <Text
+//             style={{
+//               textDecorationLine: "underline",
+//               marginTop: 12,
+//               fontSize: width * 0.04,
+//               marginHorizontal: 12,
+//             }}>
+//             Forgot your password?
+//           </Text>
+//           <View style={{ flexDirection: "row", marginTop: 15 }}>
+//             <Switch
+//               value={isStayLoggedIn}
+//               onValueChange={(value) => setIsStayLoggedIn(value)}
+//               trackColor={{ false: "#767577", true: "#2f96eb" }}
+//               thumbColor={isStayLoggedIn ? "#2f96eb" : "#f4f3f4"}
+//             />
+//             <Text style={{ marginHorizontal: 12, fontSize: width * 0.04 }}>
+//               Stay Logged in
+//             </Text>
+//           </View>
+//           {/* Animated Button */}
+//           <Animated.View style={[{ marginTop: 20 }, buttonStyle]}>
+//             <MyButton
+//               onPressIn={handleButtonPressIn}
+//               onPressOut={handleButtonPressOut}
+//               onPress={LoginHandler}
+//               Ahsan="Login"
+//             />
+//           </Animated.View>
+//         </Animated.View>
+//       </ScrollView>
+//     </SafeAreaView>
+//   );
+// };
+
+// export default LoginScreen;
+
 import React, { useState } from "react";
 import {
   ScrollView,
@@ -421,7 +603,12 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Dimensions,
+  Image,
 } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import Header from "../../components/Header";
 import MyInput from "../../components/MyInput";
 import MyButton from "../../components/MyButton";
@@ -434,8 +621,6 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 
-const { width } = Dimensions.get("window");
-
 const LoginScreen = (props) => {
   const [email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
@@ -443,15 +628,15 @@ const LoginScreen = (props) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   // Reanimated Shared Values
-  const fadeAnim = useSharedValue(0); // Initial opacity for the form
-  const buttonScale = useSharedValue(1); // Scale for the button
+  const fadeAnim = useSharedValue(0);
+  const buttonScale = useSharedValue(1);
 
   // Animated Styles
   const formStyle = useAnimatedStyle(() => ({
     opacity: withTiming(fadeAnim.value, { duration: 1000 }),
     transform: [
       {
-        translateY: withTiming(fadeAnim.value === 1 ? 0 : 50, { duration: 1000 }),
+        translateY: withTiming(fadeAnim.value === 1 ? 0 : hp("5%"), { duration: 1000 }),
       },
     ],
   }));
@@ -460,9 +645,8 @@ const LoginScreen = (props) => {
     transform: [{ scale: buttonScale.value }],
   }));
 
-  // Trigger animation when component mounts
   React.useEffect(() => {
-    fadeAnim.value = 1; // Fade in the form
+    fadeAnim.value = 1;
   }, []);
 
   const handleButtonPressIn = () => {
@@ -483,7 +667,6 @@ const LoginScreen = (props) => {
         await AsyncStorage.setItem("Useremail", email);
         await AsyncStorage.setItem("UserPassword", Password);
         console.log("Saved Data successfully");
-        // props.navigation.navigate("HomeScreen");
       } catch (error) {
         console.error("Failed to save user data:", error);
       }
@@ -494,52 +677,33 @@ const LoginScreen = (props) => {
 
   return (
     <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
-      <View
-        style={{
-          backgroundColor: "white",
-          elevation: 5,
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.2,
-          shadowRadius: 2,
-          zIndex: 1000,
-        }}
-      >
-        <Header />
-      </View>
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: '#e1effa',
-          paddingVertical: 20,
+          backgroundColor: "white",
+          paddingVertical: hp("2%"),
         }}
       >
-        {/* Animated Form */}
+        <View style={{width:'100%',alignItems:'center',justifyContent:'center'}}>
+          <Image
+            source={require("../../Assets/logo.png")}
+            style={{ height: hp("15%"), width: wp("41%") }}
+          />
+        </View>
         <Animated.View
           style={[
             {
-              width: "90%",
+              width: wp("90%"),
               backgroundColor: "white",
-              borderRadius: 8,
-              padding: 20,
+              borderRadius: wp("2%"),
+              padding: wp("5%"),
             },
-            formStyle, // Apply animated style
+            formStyle,
           ]}
         >
-          <Text
-            style={{
-              textAlign: "center",
-              fontSize: width * 0.06,
-              color: "black",
-              fontWeight: "bold",
-              marginBottom: 20,
-            }}
-          >
-            Log In
-          </Text>
-          <Text style={{ fontSize: width * 0.045, fontWeight: "600" }}>
+          <Text style={{ fontSize: wp("4.5%"), fontWeight: "600", marginHorizontal: wp("4%") }}>
             Email Address
           </Text>
           <MyInput
@@ -548,59 +712,58 @@ const LoginScreen = (props) => {
           />
           <Text
             style={{
-              fontSize: width * 0.045,
+              fontSize: wp("4.5%"),
               fontWeight: "600",
-              marginTop: 22,
+              marginTop: hp("3%"),
+              marginHorizontal: wp("4%"),
             }}
           >
             Password
           </Text>
-          <MyInput
-            Don="Must have at least 8 characters"
-            onChangeText={(text) => setPassword(text)}
-            secureTextEntry={!isPasswordVisible}
-          />
-          <TouchableOpacity
-            style={{
-              position: "absolute",
-              top: "54%",
-              right: "12%",
-            }}
-            onPress={() => setIsPasswordVisible(!isPasswordVisible)}
-          >
-            <Icons
-              name={isPasswordVisible ? "eye" : "eye-off"}
-              size={24}
-              color="gray"
+          <View>
+            <MyInput
+              Don="Must have at least 8 characters"
+              onChangeText={(text) => setPassword(text)}
+              secureTextEntry={!isPasswordVisible}
             />
-          </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+              <Icons
+                name={isPasswordVisible ? "eye" : "eye-off"}
+                size={24}
+                color="gray"
+                style={{left: wp('9%'), marginTop: hp('2%')}}
+              />
+            </TouchableOpacity>
+          </View>
           <Text
             style={{
               textDecorationLine: "underline",
-              marginTop: 12,
-              fontSize: width * 0.04,
+              marginTop: hp("2%"),
+              fontSize: wp("4%"),
+              marginHorizontal: wp("3%"),
             }}
           >
             Forgot your password?
           </Text>
-          <View style={{ flexDirection: "row", marginTop: 15 }}>
+          <View style={{ flexDirection: "row", marginTop: hp("2%") }}>
             <Switch
               value={isStayLoggedIn}
               onValueChange={(value) => setIsStayLoggedIn(value)}
               trackColor={{ false: "#767577", true: "#2f96eb" }}
               thumbColor={isStayLoggedIn ? "#2f96eb" : "#f4f3f4"}
             />
-            <Text style={{ marginHorizontal: 12, fontSize: width * 0.04 }}>
+            <Text style={{ marginHorizontal: wp("3%"), fontSize: wp("4%") }}>
               Stay Logged in
             </Text>
           </View>
-          {/* Animated Button */}
-          <Animated.View style={[{ marginTop: 20 }, buttonStyle]}>
+          <Animated.View style={[{ marginTop: hp("2%") }, buttonStyle]}>
             <MyButton
               onPressIn={handleButtonPressIn}
               onPressOut={handleButtonPressOut}
               onPress={LoginHandler}
-              Ahsan="Log In"
+              Ahsan="Login"
             />
           </Animated.View>
         </Animated.View>

@@ -12,11 +12,13 @@ import LeadScreen from './Src/Leads/LeadScreen';
 import LoginScreen from './Src/Auth/LoginScreen';
 import AddLeadInfo from './Src/Leads/AddLeadInfo';
 import EmailTemplate from './Src/Leads/EmailTemplate';
+import LeadKanboard from './Src/Leads/LeadKanboard';
+import ImportLeadScreen from './Src/Leads/ImportLeadScreen';
 
 const App=()=>{
   return (
     <SafeAreaView style={{flex:1, backgroundColor:"white"}}>
-    <LeadScreen />
+    <LoginScreen />
     </SafeAreaView>
   );
 };
