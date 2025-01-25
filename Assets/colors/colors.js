@@ -11,6 +11,12 @@ const Colors = {
     green: '#00FF00',
     statusActive: 'green',
     statusInactive: 'gray',
+    pink: '#F14168',
+    cyan: '#4CE2E0',
+    orange: '#F4863B',
+    blue: '#4D47DB',
+    
+
   };
   
   export default Colors;

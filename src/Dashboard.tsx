@@ -2,9 +2,13 @@ import { View, Text, SafeAreaView, Image, ScrollView, TouchableOpacity } from 'r
 import React from 'react'
 import Colors from '../Assets/colors/colors';
 import { Calendar } from 'react-native-calendars';
+import { useNavigation } from '@react-navigation/native';
+
 // import ScreenNavigator from '../src/Profile'
 
 const Dashboard = () => {
+    const navigation = useNavigation();
+  
   return (
     // <SafeAreaView  style={{flex: 1, backgroundColor: '#191D35' }}>
       <SafeAreaView  style={{flex: 1, backgroundColor: 'white', marginTop: 5 }}>
@@ -36,6 +40,7 @@ const Dashboard = () => {
             borderRadius: 40,
             padding: 15,
             margin: 5,
+           
 
         }}>
           {/* <Text style={{
@@ -45,10 +50,10 @@ const Dashboard = () => {
           }}>
             Dashboard
           </Text> */}
-          <View>
+          <View style={{width: '80%'}}>
           <Text style={{
             color: Colors.secondary,
-            fontSize: 25,
+            fontSize: 22,
             fontWeight: 'bold'
           }}>
             Welcome Syed Bilal
@@ -72,10 +77,11 @@ const Dashboard = () => {
         }}
         >
               <Text 
-                    style={{ textAlign: 'center', padding:10, fontSize: 15, fontWeight:'bold' , color: Colors.secondary}} >
+                    style={{ textAlign: 'center', padding:10, fontSize: 14, fontWeight:'bold' , color: Colors.secondary}} >
                      Break In
         </Text>
         </TouchableOpacity>
+       
         <TouchableOpacity 
         //  onPress={() => router.push("/(screens)/currentNeeds")}
          
@@ -93,8 +99,28 @@ const Dashboard = () => {
         }}
         >
               <Text 
-                    style={{ textAlign: 'center', padding:10 , fontSize: 15, fontWeight:'bold', color:'white'}} >
+                    style={{ textAlign: 'center', padding:10 , fontSize: 14, fontWeight:'bold', color:'white'}} >
                      Clock Out
+        </Text>
+        </TouchableOpacity>
+        <TouchableOpacity 
+         onPress={() => navigation.navigate('Chat')}
+         
+            // onPress = {signOut}
+        style={{
+          backgroundColor: 'white',
+          borderRadius:25,
+          // paddingHorizontal: 10,
+          margin: 5,
+          width: '20%',
+          // justifyContent: 'center', // Centers text vertically
+          // alignItems: 'center',
+          
+        }}
+        >
+              <Text 
+                    style={{ textAlign: 'center', padding:10, fontSize: 14, fontWeight:'bold' , color: Colors.secondary}} >
+                     Chat
         </Text>
         </TouchableOpacity>
         </View>
@@ -270,7 +296,7 @@ const Dashboard = () => {
   style={{
     backgroundColor: Colors.primary,
     borderRadius: 30,
-    padding: 20,
+    paddingTop: 5,
     margin: 10,
   }}
 >
@@ -283,7 +309,7 @@ const Dashboard = () => {
       
     }}
   >
-    <View style={{ justifyContent: 'center', marginHorizontal: 20 }}>
+    <View style={{ justifyContent: 'center', marginHorizontal: 2 }}>
       <Image
         source={require('./../Assets/profile.png')}
         style={{

@@ -270,7 +270,7 @@ const ShamA = () => {
         <View style={{ marginBottom: 30 }}>
           <Text
             style={{
-              color: Colors.primary,
+              color:  Colors.primary,
               fontSize: 25,
               fontWeight: 'bold',
               textAlign: 'center',
