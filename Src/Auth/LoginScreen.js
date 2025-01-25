@@ -658,23 +658,27 @@ const LoginScreen = (props) => {
   };
 
   const LoginHandler = async () => {
-    if (email === "") {
-      alert("Please enter your email first");
-    } else if (Password === "") {
-      alert("Please enter your Password first");
-    } else if (email === "ahsanghauri@gmail.com" && Password === "123") {
-      try {
-        await AsyncStorage.setItem("Useremail", email);
-        await AsyncStorage.setItem("UserPassword", Password);
-        console.log("Saved Data successfully");
-      } catch (error) {
-        console.error("Failed to save user data:", error);
-      }
-    } else {
-      alert("Please enter a valid email or Password");
-    }
+    // if (email === "") {
+    //   alert("Please enter your email first");
+    // } else if (Password === "") {
+    //   alert("Please enter your Password first");
+    // } else if (email === "ahsanghauri@gmail.com" && Password === "123") {
+    //   try {
+    //     await AsyncStorage.setItem("Useremail", email);
+    //     await AsyncStorage.setItem("UserPassword", Password);
+    //     console.log("Saved Data successfully");
+    //   } catch (error) {
+    //     console.error("Failed to save user data:", error);
+    //   }
+    // } else {
+    //   alert("Please enter a valid email or Password");
+    // }
+    props.navigation.navigate("Drawer");
   };
 
+  const Loginhandler = () => {
+    props.navigation.navigate("SignUpScreen");
+  };
   return (
     <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
       <ScrollView
@@ -686,7 +690,7 @@ const LoginScreen = (props) => {
           paddingVertical: hp("2%"),
         }}
       >
-        <View style={{width:'100%',alignItems:'center',justifyContent:'center'}}>
+        <View style={{ width: '100%', alignItems: 'center', justifyContent: 'center' }}>
           <Image
             source={require("../../Assets/logo.png")}
             style={{ height: hp("15%"), width: wp("41%") }}
@@ -727,13 +731,12 @@ const LoginScreen = (props) => {
               secureTextEntry={!isPasswordVisible}
             />
           </View>
-          <View>
+          <View style={{ position: "absolute", top: hp('23.4'), left: wp('78%') }}>
             <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
               <Icons
                 name={isPasswordVisible ? "eye" : "eye-off"}
                 size={24}
                 color="gray"
-                style={{left: wp('9%'), marginTop: hp('2%')}}
               />
             </TouchableOpacity>
           </View>
@@ -765,6 +768,15 @@ const LoginScreen = (props) => {
               onPress={LoginHandler}
               Ahsan="Login"
             />
+            <Text style={{ textAlign: "center", marginTop: hp(2), fontSize: hp(3) }}>Or</Text>
+            <View style={{ marginTop: hp(2) }}>
+              <MyButton
+                onPressIn={handleButtonPressIn}
+                onPressOut={handleButtonPressOut}
+                onPress={Loginhandler}
+                Ahsan="Sign Up"
+              />
+            </View>
           </Animated.View>
         </Animated.View>
       </ScrollView>

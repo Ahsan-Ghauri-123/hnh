@@ -14,11 +14,17 @@ import AddLeadInfo from './Src/Leads/AddLeadInfo';
 import EmailTemplate from './Src/Leads/EmailTemplate';
 import LeadKanboard from './Src/Leads/LeadKanboard';
 import ImportLeadScreen from './Src/Leads/ImportLeadScreen';
+import RootStack from './Navigation/nav';
 
 const App=()=>{
   return (
     <SafeAreaView style={{flex:1, backgroundColor:"white"}}>
-    <LoginScreen />
+    
+    <>
+  
+    <RootStack />
+    
+    </>
     </SafeAreaView>
   );
 };

@@ -9,7 +9,7 @@ import XLSX from 'xlsx';
 import RNFS from 'react-native-fs';
 
 
-const LeadScreen = () => {
+const LeadScreen = (props) => {
   const [selected, setSelected] = React.useState("");
   const [searchText, setSearchText] = useState('');
   const [isImportHovered, setIsImportHovered] = useState(false);
@@ -340,7 +340,11 @@ const LeadScreen = () => {
           </Text>
         </View>
         <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15, marginHorizontal: -6 }}>
-          <TouchableOpacity style={{
+          <TouchableOpacity 
+          onPress={()=>{
+            props.navigation.navigate("AddLeadInfo");
+          }}
+          style={{
             height: 50, width: 100, backgroundColor: "#20b5e9", borderRadius: 16, shadowColor: "#000",
             marginHorizontal: 33,
             shadowOffset: {
@@ -356,7 +360,11 @@ const LeadScreen = () => {
             <Text style={{ textAlign: "center", marginTop: -3, fontWeight: "bold" }}>Add Lead</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={{
+          <TouchableOpacity
+          onPress={()=>{
+            props.navigation.navigate("EmailTemplate");
+          }}
+          style={{
             height: 50, width: 100, backgroundColor: "#20b5e9", borderRadius: 18,  marginHorizontal: 25, shadowColor: "#000",
             shadowOffset: {
               width: 0,

@@ -1001,274 +1001,383 @@
 
 // export default NewsFeed;
 
+//yeh perfect code hai...
+// import React, { useState } from "react";
+// import {
+//   Image,
+//   SafeAreaView,
+//   ScrollView,
+//   Text,
+//   TextInput,
+//   TouchableOpacity,
+//   View,
+//   FlatList,
+// } from "react-native";
+// import Icons from "react-native-vector-icons/MaterialCommunityIcons";
+// import { launchImageLibrary } from "react-native-image-picker";
+// import Animated, { SlideInLeft, SlideOutLeft, Layout, SlideInRight } from "react-native-reanimated";
+
+// const NewsFeed = () => {
+//   const [inputText, setInputText] = useState("");
+//   const [posts, setPosts] = useState([]);
+//   const [commentText, setCommentText] = useState({}); // Store comment input per post
+
+//   const handlePost = () => {
+//     if (inputText.trim() !== "") {
+//       setPosts([
+//         ...posts,
+//         { text: inputText, image: null, comments: [], defaultImage: require("../../Assets/pic.jpg") },
+//       ]);
+//       setInputText("");
+//     }
+//   };
+
+//   const handleImagePicker = async () => {
+//     const result = await launchImageLibrary({ mediaType: "photo", selectionLimit: 1 });
+//     if (result.assets && result.assets.length > 0) {
+//       const selectedImage = result.assets[0].uri;
+//       if (inputText.trim() !== "") {
+//         setPosts([
+//           ...posts,
+//           { text: inputText, image: selectedImage, comments: [], defaultImage: null },
+//         ]);
+//         setInputText("");
+//       }
+//     }
+//   };
+
+//   const handleAddComment = (postIndex) => {
+//     if (commentText[postIndex]?.trim() !== "") {
+//       const updatedPosts = [...posts];
+//       updatedPosts[postIndex].comments.push(commentText[postIndex]);
+//       setPosts(updatedPosts);
+
+//       // Clear comment input for this specific post
+//       setCommentText((prev) => ({ ...prev, [postIndex]: "" }));
+//     }
+//   };
+
+//   const renderPost = ({ item, index }) => (
+//     <Animated.View
+//       entering={SlideInLeft}
+//       exiting={SlideOutLeft}
+//       layout={Layout}
+//       style={styles.postContainer}
+//     >
+//       <View style={{ flexDirection: "row", alignItems: "center" }}>
+//         <Image
+//           source={item.defaultImage ? item.defaultImage : { uri: item.image }}
+//           style={styles.postImage(item.image)}
+//         />
+//         {item.text && <Text style={styles.postText(item.image)}>{item.text}</Text>}
+//       </View>
+//       <View style={{ marginTop: 10 }}>
+//         {item.comments.map((comment, commentIndex) => (
+//           <Text key={commentIndex} style={styles.commentText}>
+//             {comment}
+//           </Text>
+//         ))}
+//         <View style={{ flexDirection: "row", alignItems: "center" }}>
+//           <TextInput
+//             placeholder="Add a comment"
+//             style={styles.commentInput}
+//             value={commentText[index] || ""} // Use comment input specific to this post
+//             onChangeText={(text) => setCommentText((prev) => ({ ...prev, [index]: text }))}
+//           />
+//           <TouchableOpacity onPress={() => handleAddComment(index)} style={{ marginLeft: 10 }}>
+//             <Icons name="send" size={24} color="#0f8df5" />
+//           </TouchableOpacity>
+//         </View>
+//       </View>
+//     </Animated.View>
+//   );
+
+//   const renderTaskOrProject = ({ item }) => (
+//     <Animated.View
+//       entering={SlideInRight}
+//       exiting={SlideOutLeft}
+//       layout={Layout}
+//       style={styles.infoContainer}
+//     >
+//       <Text style={styles.infoHeader}>{item.title}</Text>
+//       <View style={styles.infoRow}>
+//         <Text style={styles.infoCount(item.color1)}>{item.count1}</Text>
+//         <Text style={styles.infoCount(item.color2)}>{item.count2}</Text>
+//       </View>
+//       <View style={styles.infoRow}>
+//         <Text style={styles.infoLabel}>Pending</Text>
+//         <Text style={styles.infoLabel}>Overdue</Text>
+//       </View>
+//     </Animated.View>
+//   );
+
+//   const taskProjectData = [
+//     { title: "Tasks", count1: 0, count2: 0, color1: "blue", color2: "red" },
+//     { title: "Projects", count1: 0, count2: 0, color1: "blue", color2: "red" },
+//   ];
+
+//   return (
+//     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+//       <ScrollView>
+//         <View style={styles.inputContainer}>
+//           <Text style={styles.dashboardText}>Dashboard</Text>
+//           <View style={styles.textInputRow}>
+//             <Image source={require("../../Assets/pic.jpg")} style={styles.profileImage} />
+//             <TextInput
+//               placeholder="What's on your mind?"
+//               style={styles.inputField}
+//               value={inputText}
+//               onChangeText={(text) => setInputText(text)}
+//             />
+//           </View>
+//           <View style={styles.buttonRow}>
+//             <TouchableOpacity style={styles.imageButton} onPress={handleImagePicker}>
+//               <Icons name="view-gallery-outline" color="white" size={32} />
+//             </TouchableOpacity>
+//             <TouchableOpacity style={styles.postButton} onPress={handlePost}>
+//               <Text style={styles.postButtonText}>Post</Text>
+//             </TouchableOpacity>
+//           </View>
+//         </View>
+//         <ScrollView scrollEnabled={false}>
+//   <FlatList
+//     data={posts}
+//     renderItem={renderPost}
+//     keyExtractor={(item, index) => index.toString()}
+//     style={{ paddingHorizontal: 18, marginTop: 15 }}
+//   />
+// </ScrollView>
+
+//         <View style={{ marginTop: 8, paddingHorizontal: 18 }}>
+//         {taskProjectData.map((item, index) => (
+//           <Animated.View
+//             key={index}
+//             entering={SlideInRight}
+//             exiting={SlideOutLeft}
+//             layout={Layout}
+//             style={styles.infoContainer}
+//           >
+//             <Text style={styles.infoHeader}>{item.title}</Text>
+//             <View style={styles.infoRow}>
+//               <Text style={styles.infoCount(item.color1)}>{item.count1}</Text>
+//               <Text style={styles.infoCount(item.color2)}>{item.count2}</Text>
+//             </View>
+//             <View style={styles.infoRow}>
+//               <Text style={styles.infoLabel}>Pending</Text>
+//               <Text style={styles.infoLabel}>Overdue</Text>
+//             </View>
+//           </Animated.View>
+//         ))}
+//       </View>
+
+//       </ScrollView>
+//     </SafeAreaView>
+//   );
+// };
+
+// const styles = {
+//   inputContainer: {
+//     backgroundColor: "white",
+//     marginTop: 45,
+//     marginHorizontal: 18,
+//     borderRadius: 10,
+//     borderWidth: 0.4,
+//     padding: 12,
+//     shadowColor: "#000",
+//     shadowOffset: { width: 0, height: 5 },
+//     shadowOpacity: 0.34,
+//     shadowRadius: 6.27,
+//     elevation: 22,
+//     borderColor: "#032e73",
+//   },
+//   dashboardText: { fontSize: 22, fontWeight: "bold", marginBottom: 10 },
+//   textInputRow: { flexDirection: "row", alignItems: "center" },
+//   profileImage: { height: 54, width: 51, borderRadius: 27, borderWidth: 0.7 },
+//   inputField: { flex: 1, marginLeft: 10, backgroundColor: "#e1effa", borderRadius: 16, height: 45, borderWidth: 0.4 },
+//   buttonRow: { flexDirection: "row", marginTop: 15, alignItems: "center", borderWidth: 0.1 },
+//   imageButton: {
+//     borderWidth: 0.5,
+//     height: 55,
+//     width: 67,
+//     backgroundColor: "#0f8df5",
+//     borderRadius: 8,
+//     justifyContent: "center",
+//     alignItems: "center",
+//     shadowColor: "#000",
+//     shadowOffset: { width: 0, height: 5 },
+//     shadowOpacity: 0.34,
+//     shadowRadius: 6.27,
+//     elevation: 10,
+//   },
+//   postButton: {
+//     borderWidth: 0.2,
+//     flex: 1,
+//     height: 55,
+//     marginLeft: 10,
+//     backgroundColor: "#0f8df5",
+//     borderRadius: 8,
+//     justifyContent: "center",
+//     alignItems: "center",
+//     shadowColor: "#000",
+//     shadowOffset: { width: 0, height: 5 },
+//     shadowOpacity: 0.34,
+//     shadowRadius: 6.27,
+//     elevation: 15,
+//   },
+//   postButtonText: { color: "white", fontSize: 17 },
+//   postContainer: {
+//     backgroundColor: "#f8f9fa",
+//     padding: 10,
+//     borderRadius: 10,
+//     marginBottom: 10,
+//     borderWidth: 0.4,
+//     borderColor: "#032e73",
+//   },
+//   postImage: (hasImage) => ({
+//     borderWidth: 0.7,
+//     height: hasImage ? 190 : 54,
+//     width: hasImage ? 220 : 51,
+//     borderRadius: hasImage ? 10 : 27,
+//     marginBottom: hasImage ? 12 : 22,
+//     shadowColor: "#000",
+//     shadowOffset: { width: 0, height: 5 },
+//     shadowOpacity: 0.34,
+//     shadowRadius: 6.27,
+//     elevation: 14,
+//   }),
+//   postText: (hasImage) => ({
+//     fontSize: hasImage ? 18 : 14,
+//     color: "black",
+//     flex: 1,
+//     marginTop: hasImage ? 201 : 1,
+//     marginLeft: hasImage ? -199 : 8,
+//   }),
+//   commentText: { marginLeft: 10, fontSize: 14, color: "gray", marginBottom: 12 },
+//   commentInput: { flex: 1, borderRadius: 16, backgroundColor: "#e1effa", paddingHorizontal: 10 },
+//   infoContainer: {
+//     backgroundColor: "white",
+//     borderRadius: 10,
+//     padding: 12,
+//     marginBottom: 8,
+//     borderWidth: 0.7,
+//     shadowColor: "#000",
+//     shadowOffset: { width: 0, height: 5 },
+//     shadowOpacity: 0.34,
+//     shadowRadius: 6.27,
+//     elevation: 16,
+//   },
+//   infoHeader: { fontSize: 22, fontWeight: "bold" },
+//   infoRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
+//   infoCount: (color) => ({ fontSize: 22, fontWeight: "bold", color }),
+//   infoLabel: { fontSize: 22, fontWeight: "bold" },
+// };
+
+// export default NewsFeed;
+
 import React, { useState } from "react";
-import {
-  Image,
-  SafeAreaView,
-  ScrollView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  FlatList,
-} from "react-native";
-import Icons from "react-native-vector-icons/MaterialCommunityIcons";
-import { launchImageLibrary } from "react-native-image-picker";
-import Animated, { SlideInLeft, SlideOutLeft, Layout, SlideInRight } from "react-native-reanimated";
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
+import Header from "../../components/Header";
+import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/MaterialIcons";
+
+import Stories from "../../components/Stories";
+import SubHeader from "../../components/SubHeader";
+import Post from "../../components/Post";
+import { widthPercentageToDP as wp,heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 const NewsFeed = () => {
-  const [inputText, setInputText] = useState("");
-  const [posts, setPosts] = useState([]);
-  const [commentText, setCommentText] = useState({}); // Store comment input per post
+  const navigation = useNavigation();
 
-  const handlePost = () => {
-    if (inputText.trim() !== "") {
-      setPosts([
-        ...posts,
-        { text: inputText, image: null, comments: [], defaultImage: require("../../Assets/pic.jpg") },
-      ]);
-      setInputText("");
-    }
-  };
+  // State to keep track of selected icon
+  const [selectedId, setSelectedId] = useState(null);
+ 
 
-  const handleImagePicker = async () => {
-    const result = await launchImageLibrary({ mediaType: "photo", selectionLimit: 1 });
-    if (result.assets && result.assets.length > 0) {
-      const selectedImage = result.assets[0].uri;
-      if (inputText.trim() !== "") {
-        setPosts([
-          ...posts,
-          { text: inputText, image: selectedImage, comments: [], defaultImage: null },
-        ]);
-        setInputText("");
-      }
-    }
-  };
+  // Render function for FlatList items
+  const renderItem = ({ item }) => {
+    const isSelected = item.id === selectedId;
 
-  const handleAddComment = (postIndex) => {
-    if (commentText[postIndex]?.trim() !== "") {
-      const updatedPosts = [...posts];
-      updatedPosts[postIndex].comments.push(commentText[postIndex]);
-      setPosts(updatedPosts);
-
-      // Clear comment input for this specific post
-      setCommentText((prev) => ({ ...prev, [postIndex]: "" }));
-    }
-  };
-
-  const renderPost = ({ item, index }) => (
-    <Animated.View
-      entering={SlideInLeft}
-      exiting={SlideOutLeft}
-      layout={Layout}
-      style={styles.postContainer}
-    >
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <Image
-          source={item.defaultImage ? item.defaultImage : { uri: item.image }}
-          style={styles.postImage(item.image)}
+    return (
+      <TouchableOpacity
+        style={[styles.box, isSelected && styles.selectedBox]}
+        onPress={() => {
+          setSelectedId(item.id); // Update the selected ID
+          navigation.navigate(item.screen);
+        }}
+      >
+        <Icon
+          name={item.icon}
+          size={28}
+          color={isSelected ? "#3975db" : "black"} // Change color based on selection
         />
-        {item.text && <Text style={styles.postText(item.image)}>{item.text}</Text>}
-      </View>
-      <View style={{ marginTop: 10 }}>
-        {item.comments.map((comment, commentIndex) => (
-          <Text key={commentIndex} style={styles.commentText}>
-            {comment}
-          </Text>
-        ))}
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <TextInput
-            placeholder="Add a comment"
-            style={styles.commentInput}
-            value={commentText[index] || ""} // Use comment input specific to this post
-            onChangeText={(text) => setCommentText((prev) => ({ ...prev, [index]: text }))}
-          />
-          <TouchableOpacity onPress={() => handleAddComment(index)} style={{ marginLeft: 10 }}>
-            <Icons name="send" size={24} color="#0f8df5" />
-          </TouchableOpacity>
+        <View style={styles.textContainer}>
+          <Text style={[styles.boxText, isSelected && styles.selectedText]}>{item.name}</Text>
+          {/* Add underline if selected */}
         </View>
-      </View>
-    </Animated.View>
-  );
-
-  const renderTaskOrProject = ({ item }) => (
-    <Animated.View
-      entering={SlideInRight}
-      exiting={SlideOutLeft}
-      layout={Layout}
-      style={styles.infoContainer}
-    >
-      <Text style={styles.infoHeader}>{item.title}</Text>
-      <View style={styles.infoRow}>
-        <Text style={styles.infoCount(item.color1)}>{item.count1}</Text>
-        <Text style={styles.infoCount(item.color2)}>{item.count2}</Text>
-      </View>
-      <View style={styles.infoRow}>
-        <Text style={styles.infoLabel}>Pending</Text>
-        <Text style={styles.infoLabel}>Overdue</Text>
-      </View>
-    </Animated.View>
-  );
-
-  const taskProjectData = [
-    { title: "Tasks", count1: 0, count2: 0, color1: "blue", color2: "red" },
-    { title: "Projects", count1: 0, count2: 0, color1: "blue", color2: "red" },
-  ];
+      </TouchableOpacity>
+      
+    );
+  };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
-      <ScrollView>
-        <View style={styles.inputContainer}>
-          <Text style={styles.dashboardText}>Dashboard</Text>
-          <View style={styles.textInputRow}>
-            <Image source={require("../../Assets/pic.jpg")} style={styles.profileImage} />
-            <TextInput
-              placeholder="What's on your mind?"
-              style={styles.inputField}
-              value={inputText}
-              onChangeText={(text) => setInputText(text)}
-            />
-          </View>
-          <View style={styles.buttonRow}>
-            <TouchableOpacity style={styles.imageButton} onPress={handleImagePicker}>
-              <Icons name="view-gallery-outline" color="white" size={32} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.postButton} onPress={handlePost}>
-              <Text style={styles.postButtonText}>Post</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <FlatList
-          data={posts}
-          renderItem={renderPost}
-          keyExtractor={(item, index) => index.toString()}
-          style={{ paddingHorizontal: 18, marginTop: 15 }}
-        />
-
-        <View style={{ marginTop: 8, paddingHorizontal: 18 }}>
-        {taskProjectData.map((item, index) => (
-          <Animated.View
-            key={index}
-            entering={SlideInRight}
-            exiting={SlideOutLeft}
-            layout={Layout}
-            style={styles.infoContainer}
-          >
-            <Text style={styles.infoHeader}>{item.title}</Text>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoCount(item.color1)}>{item.count1}</Text>
-              <Text style={styles.infoCount(item.color2)}>{item.count2}</Text>
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Pending</Text>
-              <Text style={styles.infoLabel}>Overdue</Text>
-            </View>
-          </Animated.View>
-        ))}
+  <View style={{flex:1, backgroundColor:"white"}}>
+ 
+  <ScrollView style={styles.container}>
+      {/* Add gap below SubHeader */}
+      <View style={{backgroundColor:"white", width:"100%", marginTop:hp(1)}}>
+      <Post />
       </View>
-
-      </ScrollView>
-    </SafeAreaView>
+    </ScrollView>
+    </View>
   );
-};
-
-const styles = {
-  inputContainer: {
-    backgroundColor: "white",
-    marginTop: 45,
-    marginHorizontal: 18,
-    borderRadius: 10,
-    borderWidth: 0.4,
-    padding: 12,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 22,
-    borderColor: "#032e73",
-  },
-  dashboardText: { fontSize: 22, fontWeight: "bold", marginBottom: 10 },
-  textInputRow: { flexDirection: "row", alignItems: "center" },
-  profileImage: { height: 54, width: 51, borderRadius: 27, borderWidth: 0.7 },
-  inputField: { flex: 1, marginLeft: 10, backgroundColor: "#e1effa", borderRadius: 16, height: 45, borderWidth: 0.4 },
-  buttonRow: { flexDirection: "row", marginTop: 15, alignItems: "center", borderWidth: 0.1 },
-  imageButton: {
-    borderWidth: 0.5,
-    height: 55,
-    width: 67,
-    backgroundColor: "#0f8df5",
-    borderRadius: 8,
-    justifyContent: "center",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 10,
-  },
-  postButton: {
-    borderWidth: 0.2,
-    flex: 1,
-    height: 55,
-    marginLeft: 10,
-    backgroundColor: "#0f8df5",
-    borderRadius: 8,
-    justifyContent: "center",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 15,
-  },
-  postButtonText: { color: "white", fontSize: 17 },
-  postContainer: {
-    backgroundColor: "#f8f9fa",
-    padding: 10,
-    borderRadius: 10,
-    marginBottom: 10,
-    borderWidth: 0.4,
-    borderColor: "#032e73",
-  },
-  postImage: (hasImage) => ({
-    borderWidth: 0.7,
-    height: hasImage ? 190 : 54,
-    width: hasImage ? 220 : 51,
-    borderRadius: hasImage ? 10 : 27,
-    marginBottom: hasImage ? 12 : 22,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 14,
-  }),
-  postText: (hasImage) => ({
-    fontSize: hasImage ? 18 : 14,
-    color: "black",
-    flex: 1,
-    marginTop: hasImage ? 201 : 1,
-    marginLeft: hasImage ? -199 : 8,
-  }),
-  commentText: { marginLeft: 10, fontSize: 14, color: "gray", marginBottom: 12 },
-  commentInput: { flex: 1, borderRadius: 16, backgroundColor: "#e1effa", paddingHorizontal: 10 },
-  infoContainer: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 12,
-    marginBottom: 8,
-    borderWidth: 0.7,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 16,
-  },
-  infoHeader: { fontSize: 22, fontWeight: "bold" },
-  infoRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
-  infoCount: (color) => ({ fontSize: 22, fontWeight: "bold", color }),
-  infoLabel: { fontSize: 22, fontWeight: "bold" },
 };
 
 export default NewsFeed;
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop:10,
+  },
+  flatList: {
+    paddingHorizontal: 10,
+    marginTop: -1,
+  },
+  box: {
+    width: 60,
+    height: 70, // Increased height to accommodate underline
+    backgroundColor: "white",
+    borderRadius: -11,
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 3,
+  },
+  selectedBox: {
+    backgroundColor: "#e3f2fd", // Highlight the box if selected
+  },
+  boxText: {
+    color: "#6200ea",
+    marginTop: 5,
+    fontSize: 12,
+    textAlign: "center",
+  },
+  selectedText: {
+    color: "#3975db", // Change text color if selected
+  },
+  underline: {
+    height: 2,
+    backgroundColor: "#ff5722", // Color of the underline
+    width: "100%",
+    marginTop: 2,
+  },
+  textContainer: {
+    alignItems: "center",
+  },
+  title: {
+    marginTop: 20,
+    fontSize: 18,
+    textAlign: "center",
+  },
+  storiesContainer: {
+    marginTop: -402, // Add gap below SubHeader
+  },
+});

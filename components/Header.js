@@ -1,14 +1,67 @@
+import {View, Image, StyleSheet} from 'react-native';
 import React from 'react';
-import { Image, Text, View } from 'react-native';
+import FacebookLogo from '../Assets/images/fblogo.png';
+import VectorIcon from '../utils/VectorIcon';
+import {Colors} from '../utils/Colors';
 
-const header = () => {
-    return (
-       <View style={{backgroundColor:"white", height:"15%", width:"100%"}}>
-       <View style={{flexDirection:"row"}}>
-       <Image source={require("../Assets/logo.png")} style={{height:55, width:56, marginLeft:12, marginTop:14}} />
-       </View>
-       </View>
-    );
+const Header = () => {
+  return (
+    <View style={styles.container}>
+      <Image source={FacebookLogo} style={styles.fbLogoStyle} />
+      <View style={styles.headerIcons}>
+      <View style={styles.searchBg}>
+      <VectorIcon
+        name="pluscircle"
+        type="AntDesign"
+        size={19}
+        color={Colors.grey}
+      />
+    </View>  
+      <View style={styles.searchBg}>
+          <VectorIcon
+            name="search"
+            type="FontAwesome5"
+            size={19}
+            color={Colors.grey}
+          />
+        </View>
+        <View style={styles.searchBg}>
+          <VectorIcon
+            name="messenger"
+            type="Fontisto"
+            size={22}
+            color={Colors.grey}
+          />
+        </View>
+        
+      </View>
+    </View>
+  );
 };
 
-export default header;
+const styles = StyleSheet.create({
+  fbLogoStyle: {
+    height: 25,
+    width: 130,
+  },
+  searchBg: {
+    backgroundColor: Colors.lightgrey,
+    height: 35,
+    width: 35,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 10,
+  },
+  container: {
+    backgroundColor: Colors.white,
+    padding: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  headerIcons: {
+    flexDirection: 'row',
+  },
+});
+
+export default Header;
