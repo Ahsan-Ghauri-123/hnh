@@ -1,24 +1,25 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Home from '../src/app_screens/HomeScreen'
+// import Home from '../src/app_screens/HomeScreen'
 import ProfileScreen from '../src/app_screens/ProfileScreen'
 import Notifications from '../src/app_screens/Notifications';
 import Settings from '../src/app_screens/Settings';
-
+import HomeStack from '../Navigation/HomeNav'
 
 const Tab = createBottomTabNavigator();
 
 function MyTabs() {
   return (
     <Tab.Navigator screenOptions={{headerShown:false}} >
-      <Tab.Screen
-        name="Home"
-        component={Home}
+        {/* <Tab.Screen name="HomeStack" component={HomeStack} /> */}
+        <Tab.Screen
+        name="HomeStack"
+        component={HomeStack}  // Use HomeStack instead of Home
         options={{
-        //   tabBarLabel: 'Home',
-          tabBarIcon: ({ color, size }) => {
-            return (<Icon name="home-outline" size={size} color={color} />)
-          },
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="home-outline" size={size} color={color} />
+          ),
         }}
       />
       <Tab.Screen 

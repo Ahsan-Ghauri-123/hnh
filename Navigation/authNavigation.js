@@ -18,7 +18,6 @@ const Auth = () => {
             <Stack.Screen name="Landing" component={Landing} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="SignUp" component={SignUp} />
-
         </Stack.Navigator>
         
   ) 

@@ -1,8 +1,11 @@
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, FlatList} from 'react-native'
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, FlatList, SafeAreaView} from 'react-native'
 import React from 'react'
+import { useTheme, useNavigation } from '@react-navigation/native';
+
 
 
 const Home = () => {
+      const navigation = useNavigation();
 
   const Top = [
     { id: '1', imageSource: require('../../Assets/topProduct.png'), text: 'Vaccinations' },
@@ -24,7 +27,8 @@ const Home = () => {
   ];
 
   return (
-    <View style={{backgroundColor:'#ECECEC', flex:1, }}>
+    <SafeAreaView style={{ flex:1, }}>
+    <View >
       <View style={styles.headerView}>
           <View>
           <Image source={require('../../Assets/Hamburger.png')} style={{ marginHorizontal: 1 }} />
@@ -96,7 +100,13 @@ const Home = () => {
                     contentContainerStyle={styles.flatlist}
                 />
                </View>
-          <Text style= {{marginHorizontal:'3%'}}>Fashion Items</Text> 
+               <View style= {{flexDirection:'row', justifyContent:'space-between'}}>
+                  <Text style= {{marginHorizontal:'3%'}}>Fashion Items</Text>
+                  <TouchableOpacity
+                        onPress={() => navigation.navigate('AllProds')}>
+                      <Text style= {{marginHorizontal:'3%', fontSize:12 , color:'#D72329'}}>See All</Text>
+                    </TouchableOpacity> 
+              </View>
           <View style={styles.productView}>
                <FlatList
                     data={Product}
@@ -122,6 +132,7 @@ const Home = () => {
                </View>
               
     </View>
+    </SafeAreaView>
   )
 }
 
